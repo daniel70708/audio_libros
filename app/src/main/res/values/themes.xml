@@ -7,4 +7,11 @@
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
     </style>
+    
+    <!--Estilo para el splash screen-->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_goosebumps</item>
+        <item name="postSplashScreenTheme">@style/Theme.AudioLibros</item>
+    </style>
 </resources>
