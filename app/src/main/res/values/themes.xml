@@ -1,17 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AudioLibros" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.AudioLibros" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
+        <item name="colorPrimary">@color/negroPrimario</item>
+        <item name="colorPrimaryDark">@color/verdeOscuroSecundario</item>
+        <item name="colorAccent">@color/verdeSecundario</item>
         <!-- Customize your theme here. -->
     </style>
     
     <!--Estilo para el splash screen-->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/black</item>
+        <!--Color de fondo del splash-->
+        <item name="windowSplashScreenBackground">@color/negroPrimario</item>
+        <!--Icono del splash-->
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_goosebumps</item>
+        <!--Tema que se ejecutará después del splash-->
         <item name="postSplashScreenTheme">@style/Theme.AudioLibros</item>
     </style>
 </resources>
