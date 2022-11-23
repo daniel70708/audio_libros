@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1095018111779",
+    "project_id": "audiolibros-goosebumps",
+    "storage_bucket": "audiolibros-goosebumps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095018111779:android:cc7a7b3448293cbc5ba296",
+        "android_client_info": {
+          "package_name": "com.example.audiolibros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095018111779-63er6jmmm2dev2ombe6p25lmb3q3cd13.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.audiolibros",
+            "certificate_hash": "dc7606cf4af1000d9188d29d78ecda54db9149b6"
+          }
+        },
+        {
+          "client_id": "1095018111779-9ouk5keh2pkpdsabcemh6s8du3a4nqdh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB778vanbjA5T8vHAwK3HsJuDWIz75O7do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095018111779-9ouk5keh2pkpdsabcemh6s8du3a4nqdh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
