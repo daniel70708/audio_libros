@@ -17,4 +17,11 @@
         <!--Tema que se ejecutará después del splash-->
         <item name="postSplashScreenTheme">@style/Theme.AudioLibros</item>
     </style>
+
+    <!--Estilo para el item_libro-->
+    <style name="texto_item">
+        <item name="android:textColor">@color/blancoTexto</item>
+        <item name="android:textSize">10dp</item>
+    </style>
+
 </resources>

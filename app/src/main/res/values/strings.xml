@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Goosebumps audioLibros</string>
+
+    <!--String genericos que se usan en item_libro-->
+    <string name="titulo_item">Ejemplo de titulo libro</string>
+    <string name="autor_item">Ejemplo de autor</string>
 </resources>
