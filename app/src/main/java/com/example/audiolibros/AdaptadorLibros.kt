@@ -15,8 +15,6 @@ class AdaptadorLibros(
     inner class LibrosViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val portada: ImageView = itemView.findViewById(R.id.portadaLibro)
         val titulo: TextView = itemView.findViewById(R.id.tituloLibro)
-        val autor: TextView = itemView.findViewById(R.id.nombreAutor)
-        val calificacion: RatingBar = itemView.findViewById(R.id.calificacion)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibrosViewHolder {
@@ -27,8 +25,6 @@ class AdaptadorLibros(
     override fun onBindViewHolder(holder: LibrosViewHolder, position: Int) {
        holder.portada.setImageResource(libros[position].portada)
         holder.titulo.text = libros[position].titulo
-        holder.autor.text = libros[position].autor
-        holder.calificacion.numStars = libros[position].calificacion
     }
 
     override fun getItemCount(): Int {

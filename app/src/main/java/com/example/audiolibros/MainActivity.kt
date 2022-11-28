@@ -13,16 +13,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var listaLibro = mutableListOf(
-            Libro("Bienvenidos a la casa de la muerte", R.drawable.ic_goosebumps, "R.L. Stine", 2),
-            Libro("No bajes al sotano", R.drawable.ic_goosebumps, "R.L. Stine", 3),
-            Libro("La noche del muñeco viviente", R.drawable.ic_goosebumps, "R.L. Stine", 3)
+            Libro("Bienvenidos a la casa de la muerte", R.drawable.portada, "R.L. Stine", 2),
+            Libro("No bajes al sotano", R.drawable.portada, "R.L. Stine", 3),
+            Libro("La noche del muñeco viviente", R.drawable.portada, "R.L. Stine", 3),
+            Libro("La noche del muñeco viviente II", R.drawable.portada, "R.L. Stine", 3),
+            Libro("La noche del muñeco viviente III", R.drawable.portada, "R.L. Stine", 3),
+            Libro("La noche del muñeco viviente III", R.drawable.portada, "R.L. Stine", 3),
+            Libro("La noche del muñeco viviente III", R.drawable.portada, "R.L. Stine", 3)
         )
 
         val adaptador = AdaptadorLibros(listaLibro)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.adapter = adaptador
-        recyclerView.layoutManager = GridLayoutManager(this, 2,
-        LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
 
     }
 }
