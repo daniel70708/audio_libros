@@ -1,5 +1,6 @@
 package com.example.audiolibros
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,11 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class AdaptadorLibros(
-    var libros: List<Libro>
+    val context: Context,
+    val libros: List<Libro>
 ): RecyclerView.Adapter<AdaptadorLibros.LibrosViewHolder>() {
 
     inner class LibrosViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -23,8 +26,12 @@ class AdaptadorLibros(
     }
 
     override fun onBindViewHolder(holder: LibrosViewHolder, position: Int) {
-       holder.portada.setImageResource(libros[position].portada)
-        holder.titulo.text = libros[position].titulo
+        val libro = libros[position]
+        holder.titulo.text = libro.titulo
+        Glide.with(context)
+            .load(libro.imagen)
+            .into(holder.portada)
+
     }
 
     override fun getItemCount(): Int {

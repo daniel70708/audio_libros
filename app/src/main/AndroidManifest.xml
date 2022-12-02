@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AudioLibros">
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
