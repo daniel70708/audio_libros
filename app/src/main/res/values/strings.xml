@@ -3,6 +3,11 @@
 
     <!--String genericos que se usan en item_libro-->
     <string name="titulo_item">Ejemplo de titulo libro</string>
+
+    <!-- Strings que se utilizan para el fragment de detalle libro-->
+    <string name="autor_libro">R.L. Stine</string>
+    <string name="tiempo_restante">3% complete, 1hrs, 19 min left</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

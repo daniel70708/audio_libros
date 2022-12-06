@@ -18,7 +18,7 @@
         <item name="postSplashScreenTheme">@style/Theme.AudioLibros</item>
     </style>
 
-    <!--Estilo para el título en  item_libro-->
+    <!--Estilo para el título en item_libro-->
     <style name="texto_item">
         <item name="fontFamily">@font/patrickhand</item>
         <item name="android:textColor">@color/blancoTexto</item>
@@ -26,6 +26,28 @@
         <item name="android:gravity">center</item>
         <item name="android:lines">2</item>
         <item name="android:text">@string/titulo_item</item>
+    </style>
+
+    <!-- Estilo base del texto en fragment detalle libro -->
+    <style name="texto_base">
+        <item name="fontFamily">@font/patrickhand</item>
+        <item name="android:textColor">@color/blancoTexto</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="texto_tiempoRestante" parent="texto_base">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="texto_tituloLibro" parent="texto_base">
+        <item name="android:textSize">20dp</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="texto_autorLibro" parent="texto_base">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lines">1</item>
     </style>
 
 </resources>

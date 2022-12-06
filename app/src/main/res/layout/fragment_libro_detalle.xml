@@ -1,14 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/negroClaroPrimario"
     tools:context=".LibroDetalleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearRegresar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <ImageButton
+            android:id="@+id/botonRegresar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="@color/negroClaroPrimario"
+            android:src="@drawable/regresar" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/portada"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/portada"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearRegresar" />
+
+    <TextView
+        android:id="@+id/tiempo_restante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/texto_tiempoRestante"
+        android:text="@string/tiempo_restante"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/portada" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/blancoTexto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiempo_restante" />
+
+    <TextView
+        android:id="@+id/titulo"
+        style="@style/texto_tituloLibro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/titulo_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/autor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/texto_tituloLibro"
+        android:text="@string/autor_libro"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titulo" />
+
+    <LinearLayout
+        android:id="@+id/linearBotones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/autor">
+
+        <ImageButton
+            android:id="@+id/botonAtras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/negroClaroPrimario"
+            android:src="@drawable/anterior"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/botonRegresar10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/negroClaroPrimario"
+            android:src="@drawable/atrasar"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/botonReproducir"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/boton_redondo"
+            android:src="@drawable/reproducir"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/botonAdelantar10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/negroClaroPrimario"
+            android:src="@drawable/adelantar"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/botonSiguiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/negroClaroPrimario"
+            android:src="@drawable/siguiente"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/listaFragment"
-        android:name="com.example.audiolibros.LibroListaFragment"
+        android:name="com.example.audiolibros.LibroDetalleFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
