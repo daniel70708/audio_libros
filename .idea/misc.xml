@@ -7,8 +7,10 @@
         <entry key="app/src/main/res/drawable/ic_goosebumps.xml" value="0.247" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
         <entry key="app/src/main/res/font/font.xml" value="0.40625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_libro_detalle.xml" value="0.21666666666666667" />
+        <entry key="app/src/main/res/layout/fragment_libro_lista.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/layout/item_cargando.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_libro.xml" value="0.33" />
       </map>
