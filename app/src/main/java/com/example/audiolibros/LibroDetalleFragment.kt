@@ -63,6 +63,10 @@ class LibroDetalleFragment : Fragment() {
 
         botonRegresar.setOnClickListener {
             parentFragmentManager.commit {
+                setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.slide_out
+                )
                 replace<LibroListaFragment>(R.id.contenedor_Fragment)
                 setReorderingAllowed(true)
                 addToBackStack(null)
