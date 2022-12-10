@@ -18,16 +18,32 @@ class AdaptadorLibros(
     val libros: List<Libro>
 ): RecyclerView.Adapter<AdaptadorLibros.LibrosViewHolder>() {
 
+    private lateinit var listener: onItemClickListener
+
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnClickListener(clickListener: onItemClickListener){
+        listener = clickListener
+    }
+
     /**Contiene la vistas que queremos modificar (la portada el libro y el título del mismo), estas vistas
      * estan sin personalizar*/
-    inner class LibrosViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class LibrosViewHolder(itemView: View, clickListener: onItemClickListener): RecyclerView.ViewHolder(itemView){
         val portada: ImageView = itemView.findViewById(R.id.portadaLibro)
         val titulo: TextView = itemView.findViewById(R.id.tituloLibro)
+
+        init {
+            itemView.setOnClickListener {
+                clickListener.onItemClick(adapterPosition)
+            }
+        }
     }
     /**Devuelve la vista (sin personalizar) asociada a como se va a ver cada elemento del recyclerview */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibrosViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_libro, parent, false)
-        return LibrosViewHolder(view)
+        return LibrosViewHolder(view, listener)
     }
     /**Personaliza cada elemento con los datos de acuerdo a su posición */
     override fun onBindViewHolder(holder: LibrosViewHolder, position: Int) {
