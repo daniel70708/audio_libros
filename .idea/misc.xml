@@ -7,12 +7,16 @@
         <entry key="app/src/main/res/drawable/adelantar.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/anterior.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/atrasar.xml" value="0.2455" />
+        <entry key="app/src/main/res/drawable/boton_redondo.xml" value="0.2455" />
+        <entry key="app/src/main/res/drawable/gradient.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/ic_goosebumps.xml" value="0.247" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
+        <entry key="app/src/main/res/drawable/pausar.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/regresar.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/reproducir.xml" value="0.2455" />
         <entry key="app/src/main/res/drawable/shape.xml" value="0.19" />
         <entry key="app/src/main/res/drawable/siguiente.xml" value="0.2455" />
+        <entry key="app/src/main/res/drawable/volverreproducir.xml" value="0.2455" />
         <entry key="app/src/main/res/font/font.xml" value="0.40625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.20833333333333334" />

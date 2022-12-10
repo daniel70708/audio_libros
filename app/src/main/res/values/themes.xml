@@ -32,12 +32,12 @@
     <style name="texto_base">
         <item name="fontFamily">@font/patrickhand</item>
         <item name="android:textColor">@color/blancoTexto</item>
-        <item name="android:gravity">center</item>
     </style>
 
     <style name="texto_tiempoRestante" parent="texto_base">
         <item name="android:textSize">16dp</item>
         <item name="android:lines">1</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="texto_tituloLibro" parent="texto_base">
@@ -46,8 +46,12 @@
     </style>
 
     <style name="texto_autorLibro" parent="texto_base">
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:lines">1</item>
+    </style>
+
+    <style name="texto_tiempoReproduccion" parent="texto_base">
+        <item name="android:textSize">12dp</item>
     </style>
 
 </resources>
