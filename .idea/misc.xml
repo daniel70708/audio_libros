@@ -20,10 +20,13 @@
         <entry key="app/src/main/res/font/font.xml" value="0.40625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/control_audio.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/layout/fragment_libro_detalle.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_libro_lista.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/layout/item_cargando.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_libro.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/portada_libro.xml" value="0.20989583333333334" />
+        <entry key="app/src/main/res/layout/resumen_libro.xml" value="0.23958333333333334" />
       </map>
     </option>
   </component>
