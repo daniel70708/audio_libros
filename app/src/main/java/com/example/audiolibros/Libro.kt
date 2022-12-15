@@ -1,7 +1,7 @@
 package com.example.audiolibros
 
 data class Libro(
-    val ID: String,
+    val id: String,
     val titulo: String,
     val imagen: String,
     val resumen: String,

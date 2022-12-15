@@ -91,7 +91,7 @@ class LibroListaFragment : Fragment() {
      * usuario y le envia esos datos a la  siguiente vista (reproductor del audiolibro)*/
     fun mostrarDetalleLibro(libro: Libro){
         //Le enviamos los datos a traves de un bundle
-        val bundle = bundleOf("ID" to libro.ID,
+        val bundle = bundleOf("ID" to libro.id,
             "Titulo" to libro.titulo,
             "Imagen" to libro.imagen,
             "Resumen" to libro.resumen,
