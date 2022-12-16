@@ -57,7 +57,7 @@ class LibroListaFragment : Fragment() {
      * cuando el usuario de click sobre item del recyclerview*/
     private fun obtenerLibros(){
         //Obtenemos todos los datos de la colección Libros
-        FirebaseFirestore.getInstance().collection("Libros")
+        FirebaseFirestore.getInstance().collection("Libros").orderBy("ID_libro")
             .get()
             .addOnSuccessListener { documents ->
                 //Creamos la animacion de que está cargando los libros
@@ -91,11 +91,11 @@ class LibroListaFragment : Fragment() {
      * usuario y le envia esos datos a la  siguiente vista (reproductor del audiolibro)*/
     fun mostrarDetalleLibro(libro: Libro){
         //Le enviamos los datos a traves de un bundle
-        val bundle = bundleOf("ID" to libro.id,
-            "Titulo" to libro.titulo,
-            "Imagen" to libro.imagen,
-            "Resumen" to libro.resumen,
-            "Lanzamiento" to libro.lanzamiento)
+        val bundle = bundleOf("ID" to libro.ID_libro,
+            "Titulo" to libro.Nombre,
+            "Imagen" to libro.Url_imagen,
+            "Resumen" to libro.Resumen,
+            "Lanzamiento" to libro.Fecha_lanzamiento)
 
         val fragmentoDetalle = LibroDetalleFragment()
         fragmentoDetalle.arguments = bundle

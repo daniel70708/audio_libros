@@ -1,11 +1,9 @@
 package com.example.audiolibros
 
 data class Audio(
-    val nombreAudio: String,
-    val cadenaAudio: String
+    val ID_audio: String = "",
+    val Nombre_audio: String = "",
+    val Url_audio: String = ""
 ){
-    constructor():this(
-        "",
-        ""
-    )
+
 }

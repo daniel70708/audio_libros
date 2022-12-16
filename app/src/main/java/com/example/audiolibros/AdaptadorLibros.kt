@@ -48,9 +48,9 @@ class AdaptadorLibros(
     /**Personaliza cada elemento con los datos de acuerdo a su posición */
     override fun onBindViewHolder(holder: LibrosViewHolder, position: Int) {
         val libro = libros[position]
-        holder.titulo.text = libro.titulo
+        holder.titulo.text = libro.Nombre
         Glide.with(context)
-            .load(libro.imagen)
+            .load(libro.Url_imagen)
             .into(holder.portada)
 
     }
