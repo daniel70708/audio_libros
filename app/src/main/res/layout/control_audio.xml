@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/titulo"
+        android:id="@+id/tituloLibro"
         style="@style/texto_tituloLibro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/autor"
+        android:id="@+id/nombreAutor"
         style="@style/texto_autorLibro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo" />
+        app:layout_constraintTop_toBottomOf="@+id/tituloLibro" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -40,10 +40,10 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autor" />
+        app:layout_constraintTop_toBottomOf="@+id/nombreAutor" />
 
     <TextView
-        android:id="@+id/tiempo_inicio"
+        android:id="@+id/duracionActual"
         style="@style/texto_tiempoReproduccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <TextView
-        android:id="@+id/tiempo_final"
+        android:id="@+id/duracionAudio"
         style="@style/texto_tiempoReproduccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         android:text="@string/tiempoFinal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tiempo_inicio"
+        app:layout_constraintStart_toEndOf="@+id/duracionActual"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <LinearLayout
@@ -77,47 +77,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiempo_inicio">
+        app:layout_constraintTop_toBottomOf="@+id/duracionActual">
 
         <ImageButton
-            android:id="@+id/botonAtras"
+            android:id="@+id/botonAudio_anterior"
             android:layout_width="40dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="#00FF0303"
-            android:src="@drawable/anterior" />
+            android:src="@drawable/audio_anterior" />
 
         <ImageButton
-            android:id="@+id/botonRegresar10"
+            android:id="@+id/botonRegresar10segundos"
             android:layout_width="40dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="#00FF0303"
-            android:src="@drawable/atrasar" />
+            android:src="@drawable/retrasar10" />
 
         <ImageButton
-            android:id="@+id/botonReproducir"
+            android:id="@+id/botonReproducir_audio"
             android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/boton_redondo"
-            android:src="@drawable/reproducir"
-            />
+            android:layout_height="50dp" />
 
         <ImageButton
-            android:id="@+id/botonAdelantar10"
+            android:id="@+id/botonAdelantar10segundos"
             android:layout_width="40dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="#00FF0303"
-            android:src="@drawable/adelantar" />
+            android:src="@drawable/adelantar10" />
 
         <ImageButton
-            android:id="@+id/botonSiguiente"
+            android:id="@+id/botonAudio_siguiente"
             android:layout_width="40dp"
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="#00FF0303"
-            android:src="@drawable/siguiente" />
+            android:src="@drawable/audio_siguiente" />
 
     </LinearLayout>
 

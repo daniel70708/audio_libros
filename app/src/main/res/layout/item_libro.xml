@@ -7,7 +7,7 @@
     android:background="@color/negroPrimario">
 
     <ImageView
-        android:id="@+id/portadaLibro"
+        android:id="@+id/itemPortadaLibro"
         android:layout_width="120dp"
         android:layout_height="180dp"
         app:srcCompat="@drawable/ic_goosebumps"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tituloLibro"
+        android:id="@+id/itemNombreLibro"
         style="@style/texto_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/portadaLibro" />
+        app:layout_constraintTop_toBottomOf="@+id/itemPortadaLibro" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
