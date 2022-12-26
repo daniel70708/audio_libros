@@ -1,44 +1,30 @@
 package com.example.audiolibros
 
 import android.content.ContentValues.TAG
-import android.media.AudioManager
-import android.media.Image
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.os.bundleOf
+import android.widget.*
 import androidx.fragment.app.*
 import com.bumptech.glide.Glide
+import com.example.audiolibros.databinding.FragmentLibroDetalleBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LibroDetalleFragment : Fragment(){
-    private lateinit var ID_documento: String
-    private lateinit var listaAudio: ArrayList<Audio>
 
-    private lateinit var botonRegresarFragment: ImageButton
-    private lateinit var tiempoRestante: TextView
+    private var _binding: FragmentLibroDetalleBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var tiempoInicio: TextView
-    private lateinit var tiempoFinal: TextView
-
-    private lateinit var botonRegresarAudio: ImageButton
-    private lateinit var botonRegresar30: ImageButton
-    private lateinit var botonIniciar: ImageButton
-    private lateinit var botonAdelantar30: ImageButton
-    private lateinit var botonSiguienteAudio: ImageButton
+    private lateinit var reproductorAudio: ReproductorMediaPlayer
+    private lateinit var ID_libro: String
+    private lateinit var listaAudios: ArrayList<Audio>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listaAudio = arrayListOf()
+        listaAudios = arrayListOf()
     }
 
     override fun onCreateView(
@@ -46,29 +32,88 @@ class LibroDetalleFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val vista = inflater.inflate(R.layout.fragment_libro_detalle, container, false)
-        botonRegresarFragment = vista.findViewById(R.id.botonRegresar)
 
-        tiempoRestante = vista.findViewById(R.id.tiempo_restante)
-        tiempoInicio = vista.findViewById(R.id.tiempo_inicio)
-        tiempoFinal = vista.findViewById(R.id.tiempo_final)
-        botonIniciar = vista.findViewById(R.id.botonReproducir)
+        _binding = FragmentLibroDetalleBinding.inflate(inflater, container, false)
 
-        obtenerLibro(vista)
-        obtenerAudios()
-        return vista
+        val view = binding.root
+
+        obtenerBundle()
+        obtenerAudiosFirebase()
+        reproductorAudio = ReproductorMediaPlayer(listaAudios)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
-        limpiarTextos()
+        reiniciarInfoAudio()
 
-        botonIniciar.setOnClickListener {
-            iniciarAudios(0)
+        binding.includeAudio.botonReproducirAudio.setOnClickListener {
+            val estadoAudio = reproductorAudio.estadoAudio()
+            if (estadoAudio){
+                if (reproductorAudio.isPlaying()){
+                    binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.reproducir_audio)
+                    //reproducir.setBackgroundResource(R.drawable.reproducir_audio)
+                    reproductorAudio.pausarAudio()
+                }else{
+                    binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
+                    //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                    reproductorAudio.reproducirAudio()
+                }
+            }else{
+                binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
+                //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                reproductorAudio.iniciarAudio()
+                binding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+                //nombreAudio?.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+            }
         }
 
-        botonRegresarFragment.setOnClickListener {
+        binding.includeAudio.botonAudioSiguiente.setOnClickListener {
+            binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
+            //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+            reproductorAudio.reproducirAudioSiguiente()
+            binding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+            //nombreAudio?.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+        }
+
+        binding.includeAudio.botonAudioAnterior.setOnClickListener {
+            binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
+            //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+            reproductorAudio.reproducirAudioAnterior()
+            //nombreAudio?.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+            binding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+        }
+
+        binding.includeAudio.botonAdelantar10segundos.setOnClickListener {
+            val estadoAudio = reproductorAudio.estadoAudio()
+            if (estadoAudio){
+                if (reproductorAudio.isPlaying() == false) binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
+                    // reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                reproductorAudio.adelantar30segundos()
+            }else{
+                binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
+                //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                reproductorAudio.iniciarAudio()
+
+            }
+        }
+
+        binding.includeAudio.botonRegresar10segundos.setOnClickListener {
+            val estadoAudio = reproductorAudio.estadoAudio()
+            if (estadoAudio){
+                if (reproductorAudio.isPlaying() == false) binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
+                    // reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                reproductorAudio.retrasar30segundos()
+            }else{
+                binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
+                //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                reproductorAudio.iniciarAudio()
+            }
+        }
+
+        binding.includePortada.botonRegresarLista.setOnClickListener {
+            reproductorAudio.destuirAudio()
             parentFragmentManager.commit {
                 setCustomAnimations(
                     R.anim.fade_in,
@@ -79,30 +124,35 @@ class LibroDetalleFragment : Fragment(){
                 addToBackStack(null)
             }
         }
+
     }
+/*
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    */
+
 
     /**Obtenemos los datos del libro que el usuario selecciono en el fragment anterior (ID, nombre, resumen y fecha de lanzamiento del libro)
      * y los asignamos a este fragment para que el usuario tenga más información del libro y eventualmente reproducir el audio libro*/
-    fun obtenerLibro(vista: View){
-
-        //Creamos la referencia a la vista
-        var nombreLibro = vista.findViewById<TextView>(R.id.titulo)
-        var portadaLibro = vista.findViewById<ImageView>(R.id.portada)
-        var resumenLibro = vista.findViewById<TextView>(R.id.resumen)
-        var fechaLanzamiento = vista.findViewById<TextView>(R.id.fechaLanzamiento)
+    private fun obtenerBundle(){
 
         if (arguments != null) {
             //Asignamos los valores que recibimos de la vista anterior a las variables que referenciamos anteriormente
-            ID_documento = requireArguments().getString("ID").toString()
-            nombreLibro.text = requireArguments().getString("Titulo")
+            ID_libro = requireArguments().getString("ID").toString()
+            binding.includeAudio.tituloLibro.text =requireArguments().getString("Titulo")
+            val imagenBundle = requireArguments().getString("Imagen")
+            binding.includeResumen.resumen.text = requireArguments().getString("Resumen")
+            binding.includeResumen.fechaLanzamiento.text = requireArguments().getString("Lanzamiento")
+            /*nombreLibro.text = requireArguments().getString("Titulo")
             val imagenBundle = requireArguments().getString("Imagen")
             resumenLibro.text = requireArguments().getString("Resumen")
-            fechaLanzamiento.text = requireArguments().getString("Lanzamiento")
-            Log.d("ID", "El ID del libro es: " +ID_documento)
+            fechaLanzamiento.text = requireArguments().getString("Lanzamiento")*/
 
             Glide.with(requireContext())
                 .load(imagenBundle)
-                .into(portadaLibro)
+                .into(binding.includePortada.portadaLibro)
         }else{
             Toast.makeText(context,"Error al obtener los datos del libro", Toast.LENGTH_LONG).show()
         }
@@ -110,16 +160,15 @@ class LibroDetalleFragment : Fragment(){
 
     /**Función en donde obtenemos todos los audios del libro en Firestore, pasando como parámetro el ID del libro y accediendo a la
      * colección de Audio que posee cada libro */
-    fun obtenerAudios(){
+    private fun obtenerAudiosFirebase(){
         /*Cada libro tiene una colección que se llama Audios en donde se encuentran almacenados todos los capítulos del libro (nombre y ruta del audio)*/
-        FirebaseFirestore.getInstance().collection("Libros").document(ID_documento).collection(COLECCION_AUDIOS).orderBy("ID_audio")
+        FirebaseFirestore.getInstance().collection("Libros").document(ID_libro).collection(COLECCION_AUDIOS).orderBy("ID_audio")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result){
                     val audio = document.toObject(Audio::class.java)
                     //Pasamos todos los objetos a un arreglo
-                    listaAudio.add(audio)
-                    Log.d("ID_audio" ,"El nombre del audio es: " +listaAudio[0].Nombre_audio)
+                    listaAudios.add(audio)
                 }
             }
             .addOnFailureListener { exeption ->
@@ -127,26 +176,22 @@ class LibroDetalleFragment : Fragment(){
             }
     }
 
-    fun iniciarAudios(capitulo: Int){
-        val url = listaAudio[capitulo].Url_audio
-            //listaAudio[capitulo].Url_audio// your URL here
-        val mediaPlayer: MediaPlayer? = MediaPlayer().apply {
-            setAudioStreamType(AudioManager.STREAM_MUSIC)
-            setDataSource(url)
-            prepare() // might take long! (for buffering, etc)
-            start()
-        }
+    fun reiniciarInfoAudio(){
 
+        binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.reproducir_audio)
+        binding.includePortada.nombreAudio.text = ""
+        binding.includeAudio.duracionActual.text = "00:00"
+        binding.includeAudio.duracionAudio.text = "00:00"
     }
 
-    fun limpiarTextos(){
-        tiempoRestante.text = ""
-        tiempoInicio.text = "0.0"
-        tiempoFinal.text = "0.0"
+    fun insertarInfoAudios(cadena: String){
+        binding.includeAudio.duracionAudio.text = cadena
     }
 
     companion object {
         private const val COLECCION_AUDIOS = "Audios"
     }
 }
+
+
 

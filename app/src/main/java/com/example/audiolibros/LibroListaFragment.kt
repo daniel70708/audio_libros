@@ -1,33 +1,29 @@
 package com.example.audiolibros
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.*
-import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.audiolibros.databinding.FragmentLibroListaBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import io.grpc.InternalChannelz.instance
-import io.grpc.util.TransmitStatusRuntimeExceptionInterceptor.instance
 
 
 class LibroListaFragment : Fragment() {
+    private var _binding: FragmentLibroListaBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var listaLibros: ArrayList<Libro>
     private lateinit var adaptador: AdaptadorLibros
-    private lateinit var linearCargando: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        listaLibros = arrayListOf()
     }
 
     override fun onCreateView(
@@ -35,21 +31,23 @@ class LibroListaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val vista = inflater.inflate(R.layout.fragment_libro_lista, container, false)
-        //return inflater.inflate(R.layout.fragment_libro_lista, container, false)
+        _binding = FragmentLibroListaBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
 
-        linearCargando = vista.findViewById(R.id.linearCargando)
-        recyclerView = vista.findViewById(R.id.recyclerView)
-        //Definimos el arreglo que vamos a llenar cuando obtengamos los objetos de Firebase
-        listaLibros = arrayListOf()
-        //Definimos que va a cargar los datos del arreglo librosLista
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         adaptador = AdaptadorLibros(this, listaLibros)
-        //El recyclerview mostrará dos libros de manera vertical
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        recyclerView.adapter = adaptador
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.recyclerView.adapter = adaptador
         obtenerLibros()
+    }
 
-        return vista
+    override fun onDestroyView() {
+        super.onDestroyView()
+        listaLibros.clear()
+        _binding = null
     }
 
     /**Función que obtiene todos los datos (libros) que se encuentran en Firebase y que le pasamos al adaptadorLibros para que
@@ -61,7 +59,7 @@ class LibroListaFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
                 //Creamos la animacion de que está cargando los libros
-                linearCargando.visibility = View.INVISIBLE
+                binding.linearCargando.visibility = View.INVISIBLE
 
                 //Recorremos todos los datos rellenenado el arreglo librosLista
                 for (document in documents){
@@ -70,9 +68,9 @@ class LibroListaFragment : Fragment() {
                     listaLibros.add(libro)
                 }
                 //Cuando tenemos el arreglo de libros completo, ejecutamos el adaptador para que rellene nuestro recyclerview
-                recyclerView.adapter = adaptador
+                binding.recyclerView.adapter = adaptador
                 //Mostramos el recyclerview, pasando por detras la animación de cargar libros
-                recyclerView.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.VISIBLE
 
                 //Cunado el usuario de click en un libro mandamos a llamar a la función mostrarDetalleLibro y le pasamos objeto que se selecciono
                 adaptador.setOnClickListener(object : AdaptadorLibros.onItemClickListener{
@@ -113,4 +111,5 @@ class LibroListaFragment : Fragment() {
             addToBackStack(null)
         }
     }
+
 }

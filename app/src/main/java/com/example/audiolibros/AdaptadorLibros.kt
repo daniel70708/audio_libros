@@ -9,6 +9,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.audiolibros.databinding.ItemLibroBinding
 
 /**Adaptador que se encagará de llenar nuestro recyclerview de portadas de libros con su
  * respectivo título, recibe el contexto y la lista de libros a mostrar. Recibimos el context ya que
@@ -31,8 +32,7 @@ class AdaptadorLibros(
     /**Contiene la vistas que queremos modificar (la portada el libro y el título del mismo), estas vistas
      * estan sin personalizar*/
     inner class LibrosViewHolder(itemView: View, clickListener: onItemClickListener): RecyclerView.ViewHolder(itemView){
-        val portada: ImageView = itemView.findViewById(R.id.portadaLibro)
-        val titulo: TextView = itemView.findViewById(R.id.tituloLibro)
+        val binding = ItemLibroBinding.bind(itemView)
 
         init {
             itemView.setOnClickListener {
@@ -40,20 +40,22 @@ class AdaptadorLibros(
             }
         }
     }
+
     /**Devuelve la vista (sin personalizar) asociada a como se va a ver cada elemento del recyclerview */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibrosViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_libro, parent, false)
         return LibrosViewHolder(view, listener)
     }
+
     /**Personaliza cada elemento con los datos de acuerdo a su posición */
     override fun onBindViewHolder(holder: LibrosViewHolder, position: Int) {
         val libro = libros[position]
-        holder.titulo.text = libro.Nombre
+        holder.binding.itemNombreLibro.text = libro.Nombre
         Glide.with(context)
             .load(libro.Url_imagen)
-            .into(holder.portada)
-
+            .into(holder.binding.itemPortadaLibro)
     }
+
     /**Devuelve el tamaño del conjunto de datos*/
     override fun getItemCount(): Int {
         return libros.size

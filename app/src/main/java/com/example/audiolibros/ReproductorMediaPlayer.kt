@@ -10,9 +10,13 @@ class ReproductorMediaPlayer (
     private var indiceActual: Int = 0
     private lateinit var fragmentDetalle: LibroDetalleFragment
 
+    init {
+        fragmentDetalle = LibroDetalleFragment()
+    }
 
     override fun onPrepared(p0: MediaPlayer?) {
        reproducirAudio()
+        fragmentDetalle.insertarInfoAudios(obtenerDuracion())
     }
 
     override fun onCompletion(p0: MediaPlayer?) {
@@ -27,11 +31,11 @@ class ReproductorMediaPlayer (
         }
     }
 
-    fun iniciarAudio(numeroCapitulo: Int) {
+    fun iniciarAudio() {
         audio?.reset()
         audio = MediaPlayer()
 
-        val url = listaAudios[numeroCapitulo].Url_audio
+        val url = listaAudios[obtenerAudioActual()].Url_audio
         audio?.apply {
             setAudioStreamType(AudioManager.STREAM_MUSIC)
             setDataSource(url)
@@ -50,8 +54,6 @@ class ReproductorMediaPlayer (
         if (audio != null) audio?.pause()
     }
 
-
-
     fun isPlaying(): Boolean{
         audio?.let {
             return it.isPlaying
@@ -63,14 +65,14 @@ class ReproductorMediaPlayer (
         if (isPlaying()) pausarAudio()
         indiceActual ++
         if(obtenerAudioActual() >= listaAudios.size) indiceActual = 0
-        iniciarAudio(indiceActual)
+        iniciarAudio()
     }
 
     fun reproducirAudioAnterior(){
         if (isPlaying()) pausarAudio()
         indiceActual --
         if(obtenerAudioActual() < 0) indiceActual = listaAudios.size - 1
-        iniciarAudio(indiceActual)
+        iniciarAudio()
     }
 
     fun obtenerAudioActual(): Int{
@@ -132,6 +134,7 @@ class ReproductorMediaPlayer (
 
     fun destuirAudio(){
         if(isPlaying()) pausarAudio()
+        listaAudios.clear()
         audio?.release()
         audio = null
 
