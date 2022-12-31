@@ -1,3 +1,15 @@
+<p align="left">
+  <a style="text-decoration:none" area-label="Android">
+    <img src="https://img.shields.io/badge/Platformau-Android-green.svg">
+  </a>
+  <a style="text-decoration:none" area-label="Min API: 21">
+    <img src="https://img.shields.io/badge/minSdkVersion-21-green.svg">
+  </a>
+  <a style="text-decoration:none" area-label="In construction">
+     <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/daniel70708/audio_libros/In%20Construction">
+   </a>
+</p>
+
 ## About the project
 
 App that allow the reproduction of the classic childent’s books Gosebumps by the author R.L. Stine. Each audio-books begins with a brief review narrated by the same author fallowed by all the chapters that compose the book.
@@ -6,7 +18,7 @@ App that allow the reproduction of the classic childent’s books Gosebumps by t
 ### ⚠ In construction
 
 ## Screenshoots
-![](https://github.com/daniel70708/audio_libros/blob/main/screenshoots/goosebumps.gif )
+![App running](https://github.com/daniel70708/audio_libros/blob/main/screenshoots/goosebumps.gif "App running")
 
 ## Built With
 
