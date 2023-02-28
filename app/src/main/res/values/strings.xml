@@ -6,9 +6,8 @@
 
     <!-- Strings que se utilizan para el fragment de detalle libro-->
     <string name="autor_libro">R.L. Stine</string>
-    <string name="tiempo_restante">3% complete, 1hrs, 19 min left</string>
-    <string name="tiempoInicio">0:34</string>
-    <string name="tiempoFinal">5:54</string>
+    <string name="tiempoInicio">00:00</string>
+    <string name="tiempoFinal">00:00</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

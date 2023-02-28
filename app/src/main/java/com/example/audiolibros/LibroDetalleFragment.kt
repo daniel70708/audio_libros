@@ -14,105 +14,89 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class LibroDetalleFragment : Fragment(){
 
-    private var _binding: FragmentLibroDetalleBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var mBinding: FragmentLibroDetalleBinding
 
     private lateinit var reproductorAudio: ReproductorMediaPlayer
     private lateinit var ID_libro: String
     private lateinit var listaAudios: ArrayList<Audio>
 
+    init {
+        listaAudios = arrayListOf()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listaAudios = arrayListOf()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-
-        _binding = FragmentLibroDetalleBinding.inflate(inflater, container, false)
-
-        val view = binding.root
-
-        obtenerBundle()
-        obtenerAudiosFirebase()
-        reproductorAudio = ReproductorMediaPlayer(listaAudios)
-        return view
+        mBinding = FragmentLibroDetalleBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
-        reiniciarInfoAudio()
+        obtenerBundle()
+        obtenerAudiosFirebase()
+        reproductorAudio = ReproductorMediaPlayer(listaAudios)
 
-        binding.includeAudio.botonReproducirAudio.setOnClickListener {
+        mBinding.includeAudio.botonReproducirAudio.setOnClickListener {
             val estadoAudio = reproductorAudio.estadoAudio()
             if (estadoAudio){
                 if (reproductorAudio.isPlaying()){
-                    binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.reproducir_audio)
-                    //reproducir.setBackgroundResource(R.drawable.reproducir_audio)
+                    mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.reproducir_audio)
                     reproductorAudio.pausarAudio()
                 }else{
-                    binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
-                    //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                    mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
                     reproductorAudio.reproducirAudio()
                 }
             }else{
-                binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
-                //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
                 reproductorAudio.iniciarAudio()
-                binding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
-                //nombreAudio?.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+                mBinding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
             }
         }
 
-        binding.includeAudio.botonAudioSiguiente.setOnClickListener {
-            binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
-            //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+        mBinding.includeAudio.botonAudioSiguiente.setOnClickListener {
+            mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
             reproductorAudio.reproducirAudioSiguiente()
-            binding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
-            //nombreAudio?.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+            mBinding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
         }
 
-        binding.includeAudio.botonAudioAnterior.setOnClickListener {
-            binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
-            //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+        mBinding.includeAudio.botonAudioAnterior.setOnClickListener {
+            mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
             reproductorAudio.reproducirAudioAnterior()
-            //nombreAudio?.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
-            binding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
+            mBinding.includePortada.nombreAudio.text = listaAudios[reproductorAudio.obtenerAudioActual()].Nombre_audio
         }
 
-        binding.includeAudio.botonAdelantar10segundos.setOnClickListener {
+        mBinding.includeAudio.botonAdelantar10segundos.setOnClickListener {
             val estadoAudio = reproductorAudio.estadoAudio()
             if (estadoAudio){
-                if (reproductorAudio.isPlaying() == false) binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
-                    // reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                if (reproductorAudio.isPlaying() == false) mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
                 reproductorAudio.adelantar30segundos()
             }else{
-                binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
-                //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
                 reproductorAudio.iniciarAudio()
 
             }
         }
 
-        binding.includeAudio.botonRegresar10segundos.setOnClickListener {
+        mBinding.includeAudio.botonRegresar10segundos.setOnClickListener {
             val estadoAudio = reproductorAudio.estadoAudio()
             if (estadoAudio){
-                if (reproductorAudio.isPlaying() == false) binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
-                    // reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                if (reproductorAudio.isPlaying() == false) mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
                 reproductorAudio.retrasar30segundos()
             }else{
-                binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
-                //reproducir.setBackgroundResource(R.drawable.pausar_audio)
+                mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.pausar_audio)
                 reproductorAudio.iniciarAudio()
             }
         }
 
-        binding.includePortada.botonRegresarLista.setOnClickListener {
+        mBinding.includePortada.botonRegresarLista.setOnClickListener {
             reproductorAudio.destuirAudio()
             parentFragmentManager.commit {
                 setCustomAnimations(
@@ -141,18 +125,17 @@ class LibroDetalleFragment : Fragment(){
         if (arguments != null) {
             //Asignamos los valores que recibimos de la vista anterior a las variables que referenciamos anteriormente
             ID_libro = requireArguments().getString("ID").toString()
-            binding.includeAudio.tituloLibro.text =requireArguments().getString("Titulo")
+            mBinding.includeAudio.tituloLibro.text =requireArguments().getString("Titulo")
             val imagenBundle = requireArguments().getString("Imagen")
-            binding.includeResumen.resumen.text = requireArguments().getString("Resumen")
-            binding.includeResumen.fechaLanzamiento.text = requireArguments().getString("Lanzamiento")
-            /*nombreLibro.text = requireArguments().getString("Titulo")
-            val imagenBundle = requireArguments().getString("Imagen")
-            resumenLibro.text = requireArguments().getString("Resumen")
-            fechaLanzamiento.text = requireArguments().getString("Lanzamiento")*/
+            mBinding.includeResumen.resumen.text = requireArguments().getString("Resumen")
+            mBinding.includeResumen.fechaLanzamiento.text = requireArguments().getString("Lanzamiento")
 
             Glide.with(requireContext())
                 .load(imagenBundle)
-                .into(binding.includePortada.portadaLibro)
+                .into(mBinding.includePortada.portadaLibro)
+
+            mBinding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.reproducir_audio)
+
         }else{
             Toast.makeText(context,"Error al obtener los datos del libro", Toast.LENGTH_LONG).show()
         }
@@ -174,18 +157,6 @@ class LibroDetalleFragment : Fragment(){
             .addOnFailureListener { exeption ->
                 Log.w(TAG, "Error getting documents: ", exeption)
             }
-    }
-
-    fun reiniciarInfoAudio(){
-
-        binding.includeAudio.botonReproducirAudio.setBackgroundResource(R.drawable.reproducir_audio)
-        binding.includePortada.nombreAudio.text = ""
-        binding.includeAudio.duracionActual.text = "00:00"
-        binding.includeAudio.duracionAudio.text = "00:00"
-    }
-
-    fun insertarInfoAudios(cadena: String){
-        binding.includeAudio.duracionAudio.text = cadena
     }
 
     companion object {
