@@ -4,32 +4,21 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 
 class ReproductorMediaPlayer (
-    private val listaAudios: ArrayList<Audio>): MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
+    private val listaAudios: ArrayList<Audio>):
+    MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
     private var audio: MediaPlayer? = null
     private var indiceActual: Int = 0
-    private lateinit var fragmentDetalle: LibroDetalleFragment
-
-    init {
-        fragmentDetalle = LibroDetalleFragment()
-    }
 
     override fun onPrepared(p0: MediaPlayer?) {
        reproducirAudio()
-        fragmentDetalle.insertarInfoAudios(obtenerDuracion())
     }
 
     override fun onCompletion(p0: MediaPlayer?) {
         reproducirAudioSiguiente()
     }
 
-    fun estadoAudio(): Boolean{
-        if (audio != null){
-            return true
-        }else{
-            return false
-        }
-    }
+    fun estadoAudio(): Boolean = audio != null
 
     fun iniciarAudio() {
         audio?.reset()
@@ -44,22 +33,11 @@ class ReproductorMediaPlayer (
         }
     }
 
-    fun reproducirAudio(){
-        audio.let {
-            it?.start()
-        }
-    }
+    fun reproducirAudio() = audio?.start()
 
-    fun pausarAudio(){
-        if (audio != null) audio?.pause()
-    }
+    fun pausarAudio() = audio?.pause()
 
-    fun isPlaying(): Boolean{
-        audio?.let {
-            return it.isPlaying
-        }
-        return false
-    }
+    fun isPlaying(): Boolean = audio?.isPlaying == true
 
     fun reproducirAudioSiguiente(){
         if (isPlaying()) pausarAudio()
@@ -75,28 +53,17 @@ class ReproductorMediaPlayer (
         iniciarAudio()
     }
 
-    fun obtenerAudioActual(): Int{
-        return indiceActual;
-    }
+    fun obtenerAudioActual(): Int = indiceActual
 
     fun adelantar30segundos(){
-
         if (isPlaying()) pausarAudio()
-
-        val valor = audio?.currentPosition?.plus(10000)
-        if (valor != null) {
-            audio?.seekTo(valor)
-        }
+        audio?.currentPosition?.let { audio?.seekTo(it.plus(10000)) }
         reproducirAudio()
     }
 
     fun retrasar30segundos(){
-
         if (isPlaying()) pausarAudio()
-        val valor = audio?.currentPosition?.minus(10000)
-        if (valor != null) {
-            audio?.seekTo(valor)
-        }
+        audio?.currentPosition?.let { audio?.seekTo(it.minus(10000)) }
         reproducirAudio()
     }
 
@@ -129,7 +96,6 @@ class ReproductorMediaPlayer (
         else return 0
     }
 
-
     fun moverAudio(){}
 
     fun destuirAudio(){
@@ -137,7 +103,6 @@ class ReproductorMediaPlayer (
         listaAudios.clear()
         audio?.release()
         audio = null
-
     }
 
 }
