@@ -4,9 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.audiolibros.databinding.ItemLibroBinding
@@ -15,49 +12,48 @@ import com.example.audiolibros.databinding.ItemLibroBinding
  * respectivo título, recibe el contexto y la lista de libros a mostrar. Recibimos el context ya que
  * lo utilizaremos para que la librería glide pueda colocar la portada el libro*/
 class AdaptadorLibros(
-    val context: LibroListaFragment,
-    val libros: List<Libro>
+    private var libros: List<Libro>,
+    private var listener: OnClickListener
 ): RecyclerView.Adapter<AdaptadorLibros.LibrosViewHolder>() {
 
-    private lateinit var listener: onItemClickListener
-
-    interface onItemClickListener{
-        fun onItemClick(position: Int)
-    }
-
-    fun setOnClickListener(clickListener: onItemClickListener){
-        listener = clickListener
-    }
+    private  lateinit var mContext: Context
 
     /**Contiene la vistas que queremos modificar (la portada el libro y el título del mismo), estas vistas
      * estan sin personalizar*/
-    inner class LibrosViewHolder(itemView: View, clickListener: onItemClickListener): RecyclerView.ViewHolder(itemView){
+    inner class LibrosViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val binding = ItemLibroBinding.bind(itemView)
 
-        init {
-            itemView.setOnClickListener {
-                clickListener.onItemClick(adapterPosition)
-            }
+        fun setListener(position: Int){
+            binding.root.setOnClickListener { listener.onItemClick(position) }
         }
+
     }
 
     /**Devuelve la vista (sin personalizar) asociada a como se va a ver cada elemento del recyclerview */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibrosViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_libro, parent, false)
-        return LibrosViewHolder(view, listener)
-    }
+        mContext = parent.context
 
-    /**Personaliza cada elemento con los datos de acuerdo a su posición */
-    override fun onBindViewHolder(holder: LibrosViewHolder, position: Int) {
-        val libro = libros[position]
-        holder.binding.itemNombreLibro.text = libro.Nombre
-        Glide.with(context)
-            .load(libro.Url_imagen)
-            .into(holder.binding.itemPortadaLibro)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.item_libro, parent, false)
+        return LibrosViewHolder(view)
     }
 
     /**Devuelve el tamaño del conjunto de datos*/
-    override fun getItemCount(): Int {
-        return libros.size
+    override fun getItemCount(): Int = libros.size
+
+    /**Personaliza cada elemento con los datos de acuerdo a su posición */
+    override fun onBindViewHolder(holder: LibrosViewHolder, position: Int) {
+
+        val libro = libros[position]
+
+        with(holder){
+            setListener(position)
+
+            binding.itemNombreLibro.text = libro.Nombre
+            Glide.with(mContext)
+                .load(libro.Url_imagen)
+                .into(binding.itemPortadaLibro)
+        }
+
     }
+
 }
